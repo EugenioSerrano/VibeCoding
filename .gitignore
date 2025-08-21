@@ -1,0 +1,105 @@
+# .gitignore for .NET projects (Visual Studio, VS Code)
+
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.csproj.user
+*.dbmdl
+*.pfx
+*.publish.xml
+
+# VS Code settings
+.vscode/
+
+# Visual Studio settings
+.vs/
+
+# Rider settings
+.idea/
+*.sln.iml
+
+# NuGet packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+
+# DotCover
+*.dotCover
+
+# NCrunch
+*.ncrunch*
+.*crunch*.local.xml
+
+# MSTest test Results
+TestResults/
+[Bb]uild[Ll]og.*
+
+# NUNIT
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# DotTrace
+*.dotTrace
+
+# TeamCity
+_TeamCity*
+
+# DotMemory
+*.dotMemory
+
+# Azure Pipelines
+*.azure-pipelines.yml
+
+# Local history for Visual Studio
+.localhistory/
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Windows shortcuts
+*.lnk
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Mac files
+.DS_Store
+
+# Others
+*.log
+*.vspscc
+*.vssscc
+
+# Backup & temp files
+*~
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Publish Web Output
+*.Publish.xml
+
+# IIS Express
+.*/.vs/config/applicationhost.config
+
+# node modules (if using Node.js tooling)
+node_modules/
