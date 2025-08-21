@@ -1,0 +1,45 @@
+@page "/dashboard"
+@using Backend2.Services
+@using Backend2.Models
+@inject ProductoService ProductoService
+
+<PageTitle>Dashboard</PageTitle>
+
+<h3>Dashboard</h3>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Productos</h5>
+                <p class="card-text display-4">@productos?.Count ?? 0</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Stock total</h5>
+                <p class="card-text display-4">@productos?.Sum(p => p.Stock) ?? 0</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Valor inventario</h5>
+                <p class="card-text display-4">$@productos?.Sum(p => p.Precio * p.Stock) ?? 0</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Aquí podrías agregar una gráfica con Blazorise o Chart.js -->
+
+@code {
+    List<Producto>? productos;
+    protected override async Task OnInitializedAsync()
+    {
+        productos = await ProductoService.GetAllAsync();
+    }
+}

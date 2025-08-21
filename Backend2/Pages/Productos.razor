@@ -1,0 +1,104 @@
+@page "/productos"
+@using Backend2.Models
+@using Backend2.Services
+@inject ProductoService ProductoService
+
+<PageTitle>Productos</PageTitle>
+
+<h3>Productos</h3>
+
+<button class="btn btn-success mb-2" @onclick="ShowAdd">Agregar producto</button>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (productos != null)
+        {
+            @foreach (var p in productos)
+            {
+                <tr>
+                    <td>@p.Id</td>
+                    <td>@p.Nombre</td>
+                    <td>@p.Precio</td>
+                    <td>@p.Stock</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm me-1" @onclick="() => ShowEdit(p)">Editar</button>
+                        <button class="btn btn-danger btn-sm" @onclick="() => Delete(p.Id)">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@if (showForm)
+{
+    <EditForm Model="formModel" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="mb-2">
+            <label>Nombre</label>
+            <InputText class="form-control" @bind-Value="formModel.Nombre" />
+        </div>
+        <div class="mb-2">
+            <label>Precio</label>
+            <InputNumber class="form-control" @bind-Value="formModel.Precio" />
+        </div>
+        <div class="mb-2">
+            <label>Stock</label>
+            <InputNumber class="form-control" @bind-Value="formModel.Stock" />
+        </div>
+        <button class="btn btn-success me-2" type="submit">Guardar</button>
+        <button class="btn btn-secondary" type="button" @onclick="HideForm">Cancelar</button>
+    </EditForm>
+}
+
+@code {
+    List<Producto>? productos;
+    Producto formModel = new Producto();
+    bool showForm = false;
+    bool isEdit = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Load();
+    }
+    async Task Load() => productos = await ProductoService.GetAllAsync();
+
+    void ShowAdd()
+    {
+        formModel = new Producto();
+        isEdit = false;
+        showForm = true;
+    }
+    void ShowEdit(Producto p)
+    {
+        formModel = new Producto { Id = p.Id, Nombre = p.Nombre, Precio = p.Precio, Stock = p.Stock };
+        isEdit = true;
+        showForm = true;
+    }
+    void HideForm() => showForm = false;
+
+    async Task OnValidSubmit()
+    {
+        if (isEdit)
+            await ProductoService.UpdateAsync(formModel);
+        else
+            await ProductoService.AddAsync(formModel);
+        showForm = false;
+        await Load();
+    }
+    async Task Delete(int id)
+    {
+        await ProductoService.DeleteAsync(id);
+        await Load();
+    }
+}
