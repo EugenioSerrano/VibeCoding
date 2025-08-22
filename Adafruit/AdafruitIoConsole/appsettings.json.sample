@@ -1,0 +1,7 @@
+{
+  "AdafruitIo": {
+    "Username": "YOUR_USERNAME",
+    "ApiKey": "YOUR_AIO_KEY",
+    "BaseUrl": "https://io.adafruit.com/api/v2/"
+  }
+}
