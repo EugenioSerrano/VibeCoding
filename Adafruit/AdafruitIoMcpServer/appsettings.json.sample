@@ -1,0 +1,14 @@
+{
+  "AdafruitIo": {
+    "Username": "YOUR_USERNAME",
+    "ApiKey": "YOUR_API_KEY",
+    "BaseUrl": "https://io.adafruit.com/api/v2/"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}

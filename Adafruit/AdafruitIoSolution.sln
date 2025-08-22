@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdafruitIoClient", "Adafrui
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdafruitIoConsole", "AdafruitIoConsole\AdafruitIoConsole.csproj", "{2C9D5E8D-C6E7-4221-B36A-33DE77993584}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdafruitIoMcpServer", "AdafruitIoMcpServer\AdafruitIoMcpServer.csproj", "{6B5588F4-E2B4-3A7F-9E3C-538704383B32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,8 +43,23 @@ Global
 		{2C9D5E8D-C6E7-4221-B36A-33DE77993584}.Release|x64.Build.0 = Release|Any CPU
 		{2C9D5E8D-C6E7-4221-B36A-33DE77993584}.Release|x86.ActiveCfg = Release|Any CPU
 		{2C9D5E8D-C6E7-4221-B36A-33DE77993584}.Release|x86.Build.0 = Release|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Debug|x64.Build.0 = Debug|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Debug|x86.Build.0 = Debug|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Release|x64.ActiveCfg = Release|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Release|x64.Build.0 = Release|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Release|x86.ActiveCfg = Release|Any CPU
+		{6B5588F4-E2B4-3A7F-9E3C-538704383B32}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {884D22BB-04EB-4110-B163-81433FDB9386}
 	EndGlobalSection
 EndGlobal
