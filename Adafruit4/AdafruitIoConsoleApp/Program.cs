@@ -8,7 +8,9 @@ namespace AdafruitIoConsoleApp
 	{
 		static async Task Main(string[] args)
 		{
-			DotEnv.Load();
+			// Cargar .env desde el directorio de ejecución (bin)
+			var envPath = Path.Combine(AppContext.BaseDirectory, ".env");
+			dotenv.net.DotEnv.Load(options: new dotenv.net.DotEnvOptions(envFilePaths: new[] { envPath }));
 			var username = Environment.GetEnvironmentVariable("USERNAME") ?? string.Empty;
 			var apiKey = Environment.GetEnvironmentVariable("API_KEY") ?? string.Empty;
 			if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))

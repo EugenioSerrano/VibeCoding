@@ -12,7 +12,9 @@ namespace AdafruitIoApi.Tests
 
         static AdafruitIoClientTests()
         {
-            DotEnv.Load();
+            // Cargar .env desde el directorio de salida (bin)
+            var envPath = Path.Combine(AppContext.BaseDirectory, ".env");
+            dotenv.net.DotEnv.Load(options: new dotenv.net.DotEnvOptions(envFilePaths: new[] { envPath }));
             username = Environment.GetEnvironmentVariable("USERNAME");
             apiKey = Environment.GetEnvironmentVariable("API_KEY");
         }

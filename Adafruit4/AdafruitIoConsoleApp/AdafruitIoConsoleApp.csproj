@@ -4,6 +4,13 @@
     <ProjectReference Include="..\AdafruitIoApi\AdafruitIoApi.csproj" />
   </ItemGroup>
 
+    <ItemGroup>
+      <None Include="..\.env">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <Link>.env</Link>
+      </None>
+    </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="dotenv.net" Version="4.0.0" />
   </ItemGroup>

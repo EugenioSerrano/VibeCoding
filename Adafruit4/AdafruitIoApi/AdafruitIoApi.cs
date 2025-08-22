@@ -33,14 +33,47 @@ namespace AdafruitIoApi
         // Obtiene todos los feeds de un dashboard (por dashboardKey)
         public async Task<List<Feed>> GetFeedsFromDashboardAsync(string dashboardKey)
         {
-            var response = await _httpClient.GetAsync($"{_baseUrl}/dashboards/{dashboardKey}");
+            // 1. Obtener todos los dashboards para buscar el ID por key
+            var dashboardsResponse = await _httpClient.GetAsync($"{_baseUrl}/dashboards");
+            dashboardsResponse.EnsureSuccessStatusCode();
+            var dashboardsJson = await dashboardsResponse.Content.ReadAsStringAsync();
+            var dashboards = JsonSerializer.Deserialize<List<Dashboard>>(dashboardsJson);
+            var dashboard = dashboards?.FirstOrDefault(d => d.Key == dashboardKey);
+            if (dashboard == null)
+            {
+                Console.WriteLine($"[ERROR] No se encontró el dashboard con key '{dashboardKey}'");
+                return new List<Feed>();
+            }
+            // 2. Obtener los bloques usando el ID
+            var response = await _httpClient.GetAsync($"{_baseUrl}/dashboards/{dashboard.Id}/blocks");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
-            var dashboard = JsonSerializer.Deserialize<Dashboard>(json);
-            return dashboard?.Blocks
-                .SelectMany(b => b.BlockFeeds.Select(f => f.Feed))
-                .Where(f => f != null)
-                .ToList() ?? new();
+            try
+            {
+                var blocks = JsonSerializer.Deserialize<List<Block>>(json);
+                var feeds = new List<Feed>();
+                if (blocks != null)
+                {
+                    foreach (var block in blocks)
+                    {
+                        if (block.BlockFeeds != null)
+                        {
+                            foreach (var bf in block.BlockFeeds)
+                            {
+                                if (bf.Feed != null)
+                                    feeds.Add(bf.Feed);
+                            }
+                        }
+                    }
+                }
+                return feeds;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ERROR] No se pudo deserializar la respuesta de blocks: {ex.Message}");
+                Console.WriteLine($"[DEBUG] Respuesta JSON:\n{json}");
+                throw;
+            }
         }
 
         // Obtiene el estado actual (último valor) de un feed
@@ -66,6 +99,7 @@ namespace AdafruitIoApi
     // Modelos para deserialización
     public class Dashboard
     {
+        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public string? Key { get; set; }
