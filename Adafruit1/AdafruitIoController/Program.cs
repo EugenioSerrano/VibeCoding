@@ -62,19 +62,32 @@ class Program
 			var feed = feeds[selected - 1];
 
 			Console.WriteLine($"\nSeleccionaste: {feed.Name} (Key: {feed.Key})");
-			Console.WriteLine("¿Qué acción deseas realizar?");
-			Console.WriteLine("[1] Prender (ON/1)");
-			Console.WriteLine("[2] Apagar (OFF/0)");
-			Console.Write("Elige 1 o 2: ");
-			var action = Console.ReadLine();
-
 			string value = "";
-			if (action == "1") value = "ON";
-			else if (action == "2") value = "OFF";
+			if (feed.Key.ToLower() == "valorbarrita")
+			{
+				Console.WriteLine("Ingresa un valor entre 1 y 100 para la barrita:");
+				string input = Console.ReadLine() ?? string.Empty;
+				if (!int.TryParse(input, out int num) || num < 1 || num > 100)
+				{
+					Console.WriteLine("Valor inválido. Debe ser un número entre 1 y 100.");
+					return;
+				}
+				value = num.ToString();
+			}
 			else
 			{
-				Console.WriteLine("Acción inválida.");
-				return;
+				Console.WriteLine("¿Qué acción deseas realizar?");
+				Console.WriteLine("[1] Prender (ON/1)");
+				Console.WriteLine("[2] Apagar (OFF/0)");
+				Console.Write("Elige 1 o 2: ");
+				var action = Console.ReadLine();
+				if (action == "1") value = "ON";
+				else if (action == "2") value = "OFF";
+				else
+				{
+					Console.WriteLine("Acción inválida.");
+					return;
+				}
 			}
 
 			var ok = client.SendFeedValueAsync(feed.Key, value).GetAwaiter().GetResult();
